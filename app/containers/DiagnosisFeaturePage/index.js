@@ -34,7 +34,7 @@ export class DiagnosisFeaturePage extends React.PureComponent { // eslint-disabl
   getDiagnosisListModal = () => {
     const { isDiagnosisListShown, isAddModalShown } = this.state;
     return (
-      <Modal isOpen={isDiagnosisListShown} toggle={() => this.setState({ isDiagnosisListShown: false })}>
+      <Modal size="lg" isOpen={isDiagnosisListShown} toggle={() => this.setState({ isDiagnosisListShown: false })}>
         <DiagnosisList data={data} isAddModalShown={isAddModalShown} addHandler={(isShown) => this.setState({ isAddModalShown: isShown })} diagnosisSubmitHandler={() => {}} />
       </Modal>
     );

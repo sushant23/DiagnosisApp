@@ -32,8 +32,13 @@ AddDiagnosisModal.defaultProps = {
 function DiagnosisList({ data, addHandler, isAddModalShown, diagnosisSubmitHandler }) {
   return (
     <div>
-      <FormattedMessage {...messages.header} />
-      <Button onClick={() => addHandler(true)}><FormattedMessage {...messages.addNow} /></Button>
+      <div>
+        <FormattedMessage {...messages.header} />
+        <Button
+          onClick={() => addHandler(true)}
+          className="pull-right"
+        ><FormattedMessage {...messages.addNow} /></Button>
+      </div>
       {
         <Table>
           <thead>
@@ -62,10 +67,10 @@ function DiagnosisList({ data, addHandler, isAddModalShown, diagnosisSubmitHandl
           <tbody>
             {
             data.map(
-              ({ id, diagnosis, date, diagnosisType, notice, actuary: { firstName, lastName } }) => (<tr key={id}>
+              ({ id, diagnosis, date, diagnoseType, notice, actuary: { firstName, lastName } }) => (<tr key={id}>
                 <td>{date}</td>
                 <td>{diagnosis}</td>
-                <td>{diagnosisType}</td>
+                <td>{diagnoseType}</td>
                 <td>{notice}</td>
                 <td>{`${firstName} ${lastName}`}</td>
               </tr>)
