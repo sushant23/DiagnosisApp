@@ -6,22 +6,31 @@
 
 import React from 'react';
 import PropTypes from 'prop-types';
-import { Button, Modal, Table } from 'reactstrap';
 import { FormattedMessage } from 'react-intl';
+import {
+  Dialog,
+  FlatButton as Button,
+  Table,
+  TableBody,
+  TableHeader,
+  TableHeaderColumn,
+  TableRow,
+  TableRowColumn,
+} from 'material-ui';
 
 import messages from './messages';
+import AddDiagnosis from '../AddDiagnosis';
 
-const AddDiagnosisModal = ({ isAddModalShown, addHandler }) => (
-  <Modal isOpen={isAddModalShown} toggle={() => addHandler(false)}>
-    <div>
-      AddModal
-    </div>
-  </Modal>
+const AddDiagnosisModal = ({ isAddModalShown, addHandler, diagnosisSubmitHandler }) => (
+  <Dialog open={isAddModalShown} onRequestClose={() => addHandler(false)}>
+    <AddDiagnosis onCancel={() => addHandler(false)} onRequestAdd={diagnosisSubmitHandler} />
+  </Dialog>
 );
 
 AddDiagnosisModal.propTypes = {
   isAddModalShown: PropTypes.bool,
   addHandler: PropTypes.func.isRequired,
+  diagnosisSubmitHandler: PropTypes.func.isRequired,
 };
 
 AddDiagnosisModal.defaultProps = {
@@ -41,42 +50,42 @@ function DiagnosisList({ data, addHandler, isAddModalShown, diagnosisSubmitHandl
       </div>
       {
         <Table>
-          <thead>
-            <tr>
-              <td>
+          <TableHeader displaySelectAll={false} adjustForCheckbox={false}>
+            <TableRow>
+              <TableHeaderColumn>
                 <FormattedMessage {...messages.date} />
-              </td>
+              </TableHeaderColumn>
 
-              <td>
+              <TableHeaderColumn>
                 <FormattedMessage {...messages.diagnose} />
-              </td>
+              </TableHeaderColumn>
 
-              <td>
+              <TableHeaderColumn>
                 <FormattedMessage {...messages.type} />
-              </td>
+              </TableHeaderColumn>
 
-              <td>
+              <TableHeaderColumn>
                 <FormattedMessage {...messages.notes} />
-              </td>
+              </TableHeaderColumn>
 
-              <td>
+              <TableHeaderColumn>
                 <FormattedMessage {...messages.actuary} />
-              </td>
-            </tr>
-          </thead>
-          <tbody>
+              </TableHeaderColumn>
+            </TableRow>
+          </TableHeader>
+          <TableBody displayRowCheckbox={false}>
             {
             data.map(
-              ({ id, diagnosis, date, diagnoseType, notice, actuary: { firstName, lastName } }) => (<tr key={id}>
-                <td>{date}</td>
-                <td>{diagnosis}</td>
-                <td>{diagnoseType}</td>
-                <td>{notice}</td>
-                <td>{`${firstName} ${lastName}`}</td>
-              </tr>)
+              ({ id, diagnosis, date, diagnoseType, notice, actuary: { firstName, lastName } }) => (<TableRow key={id}>
+                <TableRowColumn>{date}</TableRowColumn>
+                <TableRowColumn>{diagnosis}</TableRowColumn>
+                <TableRowColumn>{diagnoseType}</TableRowColumn>
+                <TableRowColumn>{notice}</TableRowColumn>
+                <TableRowColumn>{`${firstName} ${lastName}`}</TableRowColumn>
+              </TableRow>)
             )
           }
-          </tbody>
+          </TableBody>
         </Table>
       }
 
