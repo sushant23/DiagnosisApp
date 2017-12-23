@@ -19,9 +19,9 @@ import reducer from './reducer';
 import saga from './saga';
 import messages from './messages';
 import DiagnosisList from '../../components/DiagnosisList';
-import { addDiagnosisAction } from './actions';
+import { addDiagnosis as addDiagnosisAction, getDiagnosisList } from './actions';
+import { selectDiagnosisList } from './selectors';
 
-const data = JSON.parse('[{"id":6,"customer":{"id":1928},"diagnosis":"Cancer","date":"2011-12-19","notice":"this is notice 1","deleted":false,"actuary":{"id":13,"userId":"a","firstName":"John","lastName":"Doe","assignment":"test assignment","phoneNumber":"54899554712","email":"john@company.com","unitId":5,"unit":{"id":5},"creator":{},"removed":false,"workTimeBegin":"2000-01-01T00:00:00","workTimeEnd":"2000-01-01T23:59:59","alwaysUsed":false,"deletingUser":{},"socialSecurityNumber":"548854A","modifyingUserId":13,"modifyingUser":{"id":13},"resolveAddress":false,"costPerHour":0,"externalId":13},"actuaryInfo":"Doe John","code":"","diagnoseType":"Type 1"},{"id":7,"customer":{"id":1928},"diagnosis":"Diabetes type 1","date":"2011-12-19","notice":"this is notice 1","deleted":false,"actuary":{"id":13,"userId":"a","firstName":"John","lastName":"Doe","assignment":"test assignment","phoneNumber":"54899554712","email":"john@company.com","unitId":5,"unit":{"id":5},"creator":{},"removed":false,"workTimeBegin":"2000-01-01T00:00:00","workTimeEnd":"2000-01-01T23:59:59","alwaysUsed":false,"deletingUser":{},"socialSecurityNumber":"548854A","modifyingUserId":13,"modifyingUser":{"id":13},"resolveAddress":false,"costPerHour":0,"externalId":13},"actuaryInfo":"Doe John","code":"C50.00&","diagnoseType":"Type c"},{"id":8,"customer":{"id":1928},"diagnosis":"E. coli","date":"2011-12-19","notice":"this is notice 1","deleted":false,"actuary":{"id":13,"userId":"a","firstName":"John","lastName":"Doe","assignment":"test assignment","phoneNumber":"54899554712","email":"john@company.com","unitId":5,"unit":{"id":5},"creator":{},"removed":false,"workTimeBegin":"2000-01-01T00:00:00","workTimeEnd":"2000-01-01T23:59:59","alwaysUsed":false,"deletingUser":{},"socialSecurityNumber":"548854A","modifyingUserId":13,"modifyingUser":{"id":13},"resolveAddress":false,"costPerHour":0,"externalId":13},"actuaryInfo":"Doe John","code":"","diagnoseType":"Type c"},{"id":9,"customer":{"id":1928},"diagnosis":"Dementia","date":"2011-12-19","notice":"this is notice 1","deleted":false,"actuary":{"id":13,"userId":"a","firstName":"John","lastName":"Doe","assignment":"test assignment","phoneNumber":"54899554712","email":"john@company.com","unitId":5,"unit":{"id":5},"creator":{},"removed":false,"workTimeBegin":"2000-01-01T00:00:00","workTimeEnd":"2000-01-01T23:59:59","alwaysUsed":false,"deletingUser":{},"socialSecurityNumber":"548854A","modifyingUserId":13,"modifyingUser":{"id":13},"resolveAddress":false,"costPerHour":0,"externalId":13},"actuaryInfo":"Doe John","code":"","diagnoseType":"Type c"},{"id":10,"customer":{"id":1928},"diagnosis":"Typhoid","date":"2011-12-19","notice":"this is notice 1","deleted":false,"actuary":{"id":13,"userId":"a","firstName":"John","lastName":"Doe","assignment":"test assignment","phoneNumber":"54899554712","email":"john@company.com","unitId":5,"unit":{"id":5},"creator":{},"removed":false,"workTimeBegin":"2000-01-01T00:00:00","workTimeEnd":"2000-01-01T23:59:59","alwaysUsed":false,"deletingUser":{},"socialSecurityNumber":"548854A","modifyingUserId":13,"modifyingUser":{"id":13},"resolveAddress":false,"costPerHour":0,"externalId":13},"actuaryInfo":"Doe John","code":"","diagnoseType":"Type B"},{"id":11,"customer":{"id":1928},"diagnosis":"Ebola","date":"2011-12-19","notice":"this is notice 1","deleted":false,"actuary":{"id":13,"userId":"a","firstName":"John","lastName":"Doe","assignment":"test assignment","phoneNumber":"54899554712","email":"john@company.com","unitId":5,"unit":{"id":5},"creator":{},"removed":false,"workTimeBegin":"2000-01-01T00:00:00","workTimeEnd":"2000-01-01T23:59:59","alwaysUsed":false,"deletingUser":{},"socialSecurityNumber":"548854A","modifyingUserId":13,"modifyingUser":{"id":13},"resolveAddress":false,"costPerHour":0,"externalId":13},"actuaryInfo":"Doe John","code":"","diagnoseType":"Type c"},{"id":12,"customer":{"id":1928},"diagnosis":"Diarrhea","date":"2011-12-19","notice":"this is notice 1","deleted":false,"actuary":{"id":13,"userId":"a","firstName":"John","lastName":"Doe","assignment":"test assignment","phoneNumber":"54899554712","email":"john@company.com","unitId":5,"unit":{"id":5},"creator":{},"removed":false,"workTimeBegin":"2000-01-01T00:00:00","workTimeEnd":"2000-01-01T23:59:59","alwaysUsed":false,"deletingUser":{},"socialSecurityNumber":"548854A","modifyingUserId":13,"modifyingUser":{"id":13},"resolveAddress":false,"costPerHour":0,"externalId":13},"actuaryInfo":"Doe John","code":"","diagnoseType":"Type c"},{"id":13,"customer":{"id":1928},"diagnosis":"Jaundice","date":"2011-12-19","notice":"this is notice 1","deleted":false,"actuary":{"id":13,"userId":"a","firstName":"John","lastName":"Doe","assignment":"test assignment","phoneNumber":"54899554712","email":"john@company.com","unitId":5,"unit":{"id":5},"creator":{},"removed":false,"workTimeBegin":"2000-01-01T00:00:00","workTimeEnd":"2000-01-01T23:59:59","alwaysUsed":false,"deletingUser":{},"socialSecurityNumber":"548854A","modifyingUserId":13,"modifyingUser":{"id":13},"resolveAddress":false,"costPerHour":0,"externalId":13},"actuaryInfo":"Doe John","code":"","diagnoseType":"Type 2"}]');
 
 export class DiagnosisFeaturePage extends React.PureComponent { // eslint-disable-line react/prefer-stateless-function
   constructor(props) {
@@ -32,8 +32,13 @@ export class DiagnosisFeaturePage extends React.PureComponent { // eslint-disabl
     };
   }
 
+  componentWillMount() {
+    this.props.getDiagnosisList();
+  }
+
   getDiagnosisListModal = () => {
     const { isDiagnosisListShown, isAddModalShown } = this.state;
+    const { diagnosisList } = this.props;
     return (
       <Dialog
         open={isDiagnosisListShown}
@@ -41,7 +46,7 @@ export class DiagnosisFeaturePage extends React.PureComponent { // eslint-disabl
         autoScrollBodyContent
       >
         <DiagnosisList
-          data={data}
+          data={diagnosisList}
           isAddModalShown={isAddModalShown}
           addHandler={(isShown) => this.setState({ isAddModalShown: isShown })}
           diagnosisSubmitHandler={this.submitDiagnosis}
@@ -56,6 +61,7 @@ export class DiagnosisFeaturePage extends React.PureComponent { // eslint-disabl
     const date = dataObj.date;
     const day = dataObj.date && `${date.getUTCFullYear()}-${date.getUTCMonth()}-${date.getUTCDay()}`;
     addDiagnosis({ ...dataObj, date: day });
+    this.setState({ isAddModalShown: false });
   };
 
   render() {
@@ -77,12 +83,15 @@ export class DiagnosisFeaturePage extends React.PureComponent { // eslint-disabl
 
 DiagnosisFeaturePage.propTypes = {
   addDiagnosis: PropTypes.func.isRequired,
+  getDiagnosisList: PropTypes.func.isRequired,
+  diagnosisList: PropTypes.array,
 };
 
 const mapStateToProps = createStructuredSelector({
+  diagnosisList: selectDiagnosisList(),
 });
 
-const withConnect = connect(mapStateToProps, _partial(bindActionCreators, { addDiagnosisAction }));
+const withConnect = connect(mapStateToProps, _partial(bindActionCreators, { addDiagnosis: addDiagnosisAction, getDiagnosisList }));
 const withReducer = injectReducer({ key: 'diagnosisFeaturePage', reducer });
 const withSaga = injectSaga({ key: 'diagnosisFeaturePage', saga });
 

@@ -9,17 +9,11 @@ const selectDiagnosisFeaturePageDomain = (state) => state.get('diagnosisFeatureP
  * Other specific selectors
  */
 
-
-/**
- * Default selector used by DiagnosisFeaturePage
- */
-
-const makeSelectDiagnosisFeaturePage = () => createSelector(
+const selectDiagnosisList = () => createSelector(
   selectDiagnosisFeaturePageDomain,
-  (substate) => substate.toJS()
+  (substate) => substate.get('diagnosisList').toJS()
 );
 
-export default makeSelectDiagnosisFeaturePage;
 export {
-  selectDiagnosisFeaturePageDomain,
+  selectDiagnosisList,
 };

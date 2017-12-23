@@ -75,16 +75,16 @@ function DiagnosisList({ data, addHandler, isAddModalShown, diagnosisSubmitHandl
           </TableHeader>
           <TableBody displayRowCheckbox={false}>
             {
-            data.map(
-              ({ id, diagnosis, date, diagnoseType, notice, actuary: { firstName, lastName } }) => (<TableRow key={id}>
-                <TableRowColumn>{date}</TableRowColumn>
-                <TableRowColumn>{diagnosis}</TableRowColumn>
-                <TableRowColumn>{diagnoseType}</TableRowColumn>
-                <TableRowColumn>{notice}</TableRowColumn>
-                <TableRowColumn>{`${firstName} ${lastName}`}</TableRowColumn>
-              </TableRow>)
-            )
-          }
+              data.map(
+                ({ id, diagnosis, date, diagnoseType, notice, actuary }) => (<TableRow key={id}>
+                  <TableRowColumn>{date}</TableRowColumn>
+                  <TableRowColumn>{diagnosis}</TableRowColumn>
+                  <TableRowColumn>{diagnoseType}</TableRowColumn>
+                  <TableRowColumn>{notice}</TableRowColumn>
+                  {actuary && <TableRowColumn>{`${actuary.firstName} ${actuary.lastName}`}</TableRowColumn>}
+                </TableRow>)
+              )
+            }
           </TableBody>
         </Table>
       }
@@ -108,8 +108,8 @@ DiagnosisList.propTypes = {
     diagnoseType: PropTypes.string.isRequired,
     notice: PropTypes.string.isRequired,
     actuary: PropTypes.shape({
-      firstName: PropTypes.string.isRequired,
-      lastName: PropTypes.string.isRequired,
+      firstName: PropTypes.string,
+      lastName: PropTypes.string,
     }),
   })).isRequired,
   isAddModalShown: PropTypes.bool,
