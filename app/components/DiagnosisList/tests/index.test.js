@@ -1,7 +1,6 @@
 import React from 'react';
 import { shallow } from 'enzyme';
 import _noop from 'lodash/noop';
-import { TableRow } from 'material-ui';
 
 import DiagnosisList, { AddDiagnosisModal } from '../index';
 import AddDiagnosis from '../../AddDiagnosis/index';
@@ -32,7 +31,10 @@ describe('<DiagnosisList />', () => {
         }]}
       />
     );
-    expect(wrapper.find(TableRow)).toHaveLength(2);
+    expect(wrapper.contains('2017-11-11')).toBe(true);
+    expect(wrapper.contains('Cancer')).toBe(true);
+    expect(wrapper.contains('hello')).toBe(true);
+    expect(wrapper.contains('Sushant Devkota')).toBe(true);
   });
 
   it('should render AddDiagnosis if AddDiagnosisModal has isAddModalShown prop present', () => {
