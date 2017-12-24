@@ -8,12 +8,12 @@ const selectDiagnosisFeaturePageDomain = (state) => state.get('diagnosisFeatureP
 /**
  * Other specific selectors
  */
-
 const selectDiagnosisList = () => createSelector(
   selectDiagnosisFeaturePageDomain,
   (substate) => substate.get('diagnosisList').toJS()
 );
 
 export {
+  selectDiagnosisFeaturePageDomain,
   selectDiagnosisList,
 };
