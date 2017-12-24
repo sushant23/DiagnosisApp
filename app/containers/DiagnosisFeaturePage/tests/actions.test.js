@@ -1,18 +1,19 @@
-
-import {
-  defaultAction,
-} from '../actions';
-import {
-  DEFAULT_ACTION,
-} from '../constants';
+import { addDiagnosis } from '../actions';
+import { ADD_DIAGNOSIS } from '../constants';
 
 describe('DiagnosisFeaturePage actions', () => {
-  describe('Default Action', () => {
-    it('has a type of DEFAULT_ACTION', () => {
-      const expected = {
-        type: DEFAULT_ACTION,
+  describe('addDiagnosis', () => {
+    it('should return correct diagnosis and type', () => {
+      const fixture = {
+        date: '2017-12-12',
+        diagnosis: 'Cancer',
+        notice: 'this is notice',
       };
-      expect(defaultAction()).toEqual(expected);
+      const expected = {
+        type: ADD_DIAGNOSIS,
+        diagnosis: fixture,
+      };
+      expect(addDiagnosis(fixture)).toEqual(expected);
     });
   });
 });
