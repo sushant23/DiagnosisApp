@@ -20,6 +20,7 @@ import {
 
 import messages from './messages';
 import AddDiagnosis from '../AddDiagnosis';
+import './DiagnosisList.scss';
 
 const AddDiagnosisModal = ({ isAddModalShown, addHandler, diagnosisSubmitHandler }) => (
   <Dialog open={isAddModalShown} onRequestClose={() => addHandler(false)}>
@@ -41,11 +42,10 @@ AddDiagnosisModal.defaultProps = {
 function DiagnosisList({ data, addHandler, isAddModalShown, diagnosisSubmitHandler }) {
   return (
     <div>
-      <div>
+      <div className="diagnosis-list-header">
         <FormattedMessage {...messages.header} />
         <Button
           onClick={() => addHandler(true)}
-          className="pull-right"
         ><FormattedMessage {...messages.addNow} /></Button>
       </div>
       {
