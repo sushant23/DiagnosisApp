@@ -1,0 +1,67 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`add diagnosis saga should dispatch diagnosis add error action if response errors 1`] = `
+Object {
+  "@@redux-saga/IO": true,
+  "CALL": Object {
+    "args": Array [
+      "http://dbtest.domacare.fi:5000/diagnoses",
+      Object {
+        "body": "{\\"date\\":\\"2017-12-12\\",\\"diagnosis\\":\\"Cancer\\",\\"notice\\":\\"Hello\\"}",
+        "headers": Object {
+          "Content-Type": "application/json",
+        },
+        "method": "POST",
+      },
+    ],
+    "context": null,
+    "fn": [Function],
+  },
+}
+`;
+
+exports[`add diagnosis saga should dispatch diagnosis add success action if data is added successfully 1`] = `
+Object {
+  "@@redux-saga/IO": true,
+  "CALL": Object {
+    "args": Array [
+      "http://dbtest.domacare.fi:5000/diagnoses",
+      Object {
+        "body": "{\\"date\\":\\"2017-12-12\\",\\"diagnosis\\":\\"Cancer\\",\\"notice\\":\\"Hello\\"}",
+        "headers": Object {
+          "Content-Type": "application/json",
+        },
+        "method": "POST",
+      },
+    ],
+    "context": null,
+    "fn": [Function],
+  },
+}
+`;
+
+exports[`get diagnosis Saga should call the diagnosis list load error action if the response errors 1`] = `
+Object {
+  "@@redux-saga/IO": true,
+  "CALL": Object {
+    "args": Array [
+      "http://dbtest.domacare.fi:5000/diagnoses?expand=author",
+    ],
+    "context": null,
+    "fn": [Function],
+  },
+}
+`;
+
+exports[`get diagnosis Saga should dispatch diagnosis list load success action if data is fetched successfully 1`] = `
+Object {
+  "@@redux-saga/IO": true,
+  "CALL": Object {
+    "args": Array [
+      "http://dbtest.domacare.fi:5000/diagnoses?expand=author",
+    ],
+    "context": null,
+    "fn": [Function],
+  },
+}
+`;

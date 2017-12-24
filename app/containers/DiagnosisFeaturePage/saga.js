@@ -44,7 +44,7 @@ export function* addDiagnosis({ diagnosis }) {
 /**
  * Root saga manages watcher lifecycle
  */
-export default function* githubData() {
+export default function* diagnosisSagas() {
   yield all([
     takeLatest(GET_DIAGNOSIS_LIST, getDiagnosisList),
     takeLatest(ADD_DIAGNOSIS, addDiagnosis),
