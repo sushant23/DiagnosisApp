@@ -22,7 +22,7 @@ import messages from './messages';
 import AddDiagnosis from '../AddDiagnosis';
 import './DiagnosisList.scss';
 
-const AddDiagnosisModal = ({ isAddModalShown, addHandler, diagnosisSubmitHandler }) => (
+export const AddDiagnosisModal = ({ isAddModalShown, addHandler, diagnosisSubmitHandler }) => (
   <Dialog open={isAddModalShown} onRequestClose={() => addHandler(false)}>
     <AddDiagnosis onCancel={() => addHandler(false)} onRequestAdd={diagnosisSubmitHandler} />
   </Dialog>

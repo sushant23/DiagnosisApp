@@ -13,6 +13,7 @@ import { createStructuredSelector } from 'reselect';
 import { bindActionCreators, compose } from 'redux';
 import { Dialog, RaisedButton as Button } from 'material-ui';
 import _partial from 'lodash/partial';
+import _noop from 'lodash/noop';
 import injectSaga from 'utils/injectSaga';
 import injectReducer from 'utils/injectReducer';
 import reducer from './reducer';
@@ -84,7 +85,13 @@ export class DiagnosisFeaturePage extends React.PureComponent { // eslint-disabl
 DiagnosisFeaturePage.propTypes = {
   addDiagnosis: PropTypes.func.isRequired,
   getDiagnosisList: PropTypes.func.isRequired,
-  diagnosisList: PropTypes.array,
+  diagnosisList: PropTypes.array.isRequired,
+};
+
+DiagnosisFeaturePage.defaultProps = {
+  addDiagnosis: _noop,
+  getDiagnosisList: _noop,
+  diagnosisList: [],
 };
 
 const mapStateToProps = createStructuredSelector({

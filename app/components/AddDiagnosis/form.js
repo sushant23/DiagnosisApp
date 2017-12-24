@@ -1,9 +1,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import Field from 'redux-form/es/immutable/Field';
-import reduxForm from 'redux-form/es/immutable/reduxForm';
 import { DatePicker, TextField } from 'redux-form-material-ui';
 import { FlatButton as Button } from 'material-ui';
+import { Field, reduxForm } from 'redux-form';
 
 
 const DiagnosisForm = ({ handleSubmit, onCancel }) => (<form onSubmit={handleSubmit}>
