@@ -6,12 +6,12 @@
 
 import React from 'react';
 import PropTypes from 'prop-types';
-import AddDiagnosisFrom from './form';
+import AddDiagnosisForm from './form';
 
 function AddDiagnosis({ onCancel, onRequestAdd }) {
   return (
     <div>
-      <AddDiagnosisFrom onCancel={onCancel} onSubmit={onRequestAdd} />
+      <AddDiagnosisForm onCancel={onCancel} onSubmit={onRequestAdd} />
     </div>
   );
 }
